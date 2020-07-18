@@ -12,7 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+
 import com.example.project2.R;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoDatabase;
+
+import java.util.List;
+import java.util.Set;
+
 
 public class DashboardFragment extends Fragment {
 
@@ -30,6 +40,7 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
         return root;
     }
 }
