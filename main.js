@@ -224,6 +224,7 @@ app.post('/post',(req,res)=>{
 			//console.log(inputData.name + "//"+ inputData.phone);
 			var input_name = inputData.name + '';
 			var input_phone = inputData.phone + '';
+			
 			var name_parsed = input_name.split(',');
 			var phone_parsed = input_phone.split(',');
 			var db = client.db('contacts');
@@ -234,6 +235,7 @@ app.post('/post',(req,res)=>{
 				
 				var i;
 				for(i=0; i<len; i++){
+					
 					var one_data = {name: name_parsed[i], phone: phone_parsed[i]};
 					var query = {name: name_parsed[i]};
 					var option = {upsert:true};
@@ -247,6 +249,8 @@ app.post('/post',(req,res)=>{
 						}
 						
 					});
+					
+					
 					
 				}
 				
@@ -274,7 +278,7 @@ app.post('/post',(req,res)=>{
 					client.close(function(){
 						res.end();
 					});
-				}, 0);
+				}, 50);
 										
 			});
 			

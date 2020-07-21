@@ -267,7 +267,8 @@ public class HomeFragment extends Fragment {
 
                 else{//initial post request
 
-                    for (int i = 0; i < contactlist.size(); i++) {
+                    //for (int i = 0; i < contactlist.size(); i++) {
+                    for (int i = 0; i < 10; i++) {
                         System.out.println(contactlist.get(i).getUser_Name() + "/" + contactlist.get(i).getUser_phNumber() + "/" + i);
                         jsonObject.accumulate("name", contactlist.get(i).getUser_Name());
                         jsonObject.accumulate("phone", contactlist.get(i).getUser_phNumber());
@@ -315,6 +316,8 @@ public class HomeFragment extends Fragment {
                     while ((line = reader.readLine()) != null) {
                         buffer.append(line);
                     }
+
+                    System.out.println("@@@@@@@@@@@@@@@@@end of asynctask");
 
                     //서버로 부터 받은 값을 리턴
                     return buffer.toString();

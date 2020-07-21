@@ -7,7 +7,10 @@ import android.media.tv.TvInputService;
 import android.os.Build;
 import android.os.Bundle;
 import android.se.omapi.Session;
+import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +26,10 @@ import com.facebook.FacebookBroadcastReceiver;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -44,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         ImageView animation = findViewById(R.id.login_animation);
@@ -57,6 +65,12 @@ public class LoginActivity extends AppCompatActivity {
         login = (LoginButton) findViewById(R.id.login_button);
 
         openApp = findViewById(R.id.open_app_button);
+
+        final Bundle parameters = new Bundle();
+
+
+
+
 
 
         if (isLoggedIn()) {
@@ -85,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
+
                     info.setText("User Id: " + loginResult.getAccessToken().getUserId());
                     String imageURL =
                             "https://graph.facebook.com/" + loginResult.getAccessToken().getUserId() + "/picture?return_ssl_resources=1";
