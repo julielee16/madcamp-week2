@@ -1,0 +1,119 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+            <path
+                android:name="box_left"
+                android:pathData="M 9.503 23.034 L 9.503 15.884 L 13.314 15.884 L 13.314 23.034 Z"
+                android:fillColor="#bd1a1a"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.1"/>
+            <path
+                android:name="box_middle"
+                android:pathData="M 14.037 23.034 L 14.037 15.884 L 14.967 15.884 L 14.967 23.034 Z"
+                android:fillColor="#bd1a1a"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.1"/>
+            <path
+                android:name="box_right"
+                android:pathData="M 15.624 23.034 L 15.624 15.884 L 19.436 15.884 L 19.436 23.034 Z"
+                android:fillColor="#bd1a1a"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.1"/>
+            <path
+                android:name="lid_left"
+                android:pathData="M 8.202 16.914 L 6.516 17.275 L 5.505 12.562 L 7.191 12.2 Z"
+                android:fillColor="#bd1a1a"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.1"/>
+            <path
+                android:name="lid_right"
+                android:pathData="M 6.739 10.042 L 5.053 10.402 L 4.042 5.688 L 5.728 5.327 Z"
+                android:fillColor="#bd1a1a"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.1"/>
+            <path
+                android:name="lid_middle"
+                android:pathData="M 7.123 11.845 L 5.431 12.208 L 5.13 10.8 L 6.819 10.435 Z"
+                android:fillColor="#bd1a1a"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.1"/>
+            <path
+                android:name="ribbon_left"
+                android:pathData="M 5.091 11.544 C 5.518 11.598 5.548 12.996 5.156 14.666 C 4.764 16.334 4.102 17.643 3.678 17.588 C 3.25 17.53 3.222 16.131 3.614 14.462 C 4.002 12.793 4.665 11.483 5.091 11.543 Z"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.2"/>
+            <path
+                android:name="ribbon_right"
+                android:pathData="M 5.061 11.528 C 4.696 11.795 3.569 10.901 2.541 9.534 C 1.518 8.168 0.981 6.844 1.344 6.577 C 1.708 6.312 2.834 7.205 3.859 8.571 C 4.887 9.939 5.424 11.262 5.061 11.528 Z"
+                android:strokeColor="#bd1a1a"
+                android:strokeWidth="0.2"/>
+        </vector>
+    </aapt:attr>
+    <target android:name="lid_left">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="pathData"
+                android:startOffset="600"
+                android:duration="900"
+                android:valueFrom="M 8.6 15.884 L 8.598 14.159 L 13.418 14.153 L 13.421 15.877 Z"
+                android:valueTo="M 8.202 16.914 L 6.516 17.275 L 5.505 12.562 L 7.191 12.2 Z"
+                android:valueType="pathType"
+                android:interpolator="@android:anim/overshoot_interpolator"/>
+        </aapt:attr>
+    </target>
+    <target android:name="lid_right">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="pathData"
+                android:startOffset="600"
+                android:duration="900"
+                android:valueFrom="M 15.626 15.884 L 15.624 14.16 L 20.445 14.153 L 20.448 15.877 Z"
+                android:valueTo="M 6.739 10.042 L 5.053 10.402 L 4.042 5.688 L 5.728 5.327 Z"
+                android:valueType="pathType"
+                android:interpolator="@android:anim/overshoot_interpolator"/>
+        </aapt:attr>
+    </target>
+    <target android:name="lid_middle">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="pathData"
+                android:startOffset="600"
+                android:duration="900"
+                android:valueFrom="M 13.782 15.884 L 13.779 14.154 L 15.22 14.153 L 15.225 15.881 Z"
+                android:valueTo="M 7.123 11.845 L 5.431 12.208 L 5.13 10.8 L 6.819 10.435 Z"
+                android:valueType="pathType"
+                android:interpolator="@android:anim/overshoot_interpolator"/>
+        </aapt:attr>
+    </target>
+    <target android:name="ribbon_left">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="pathData"
+                android:startOffset="600"
+                android:duration="900"
+                android:valueFrom="M 14.488 13.962 C 14.346 14.368 12.973 14.106 11.421 13.375 C 9.871 12.644 8.729 11.724 8.871 11.321 C 9.017 10.915 10.391 11.179 11.942 11.909 C 13.493 12.637 14.636 13.558 14.489 13.962 Z"
+                android:valueTo="M 5.091 11.544 C 5.518 11.598 5.548 12.996 5.156 14.666 C 4.764 16.334 4.102 17.643 3.678 17.588 C 3.25 17.53 3.222 16.131 3.614 14.462 C 4.002 12.793 4.665 11.483 5.091 11.543 Z"
+                android:valueType="pathType"
+                android:interpolator="@android:anim/overshoot_interpolator"/>
+        </aapt:attr>
+    </target>
+    <target android:name="ribbon_right">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="pathData"
+                android:startOffset="600"
+                android:duration="900"
+                android:valueFrom="M 14.522 13.933 C 14.336 13.52 15.445 12.605 16.997 11.884 C 18.546 11.167 19.952 10.918 20.137 11.329 C 20.321 11.74 19.213 12.656 17.663 13.374 C 16.112 14.094 14.706 14.344 14.522 13.933 Z"
+                android:valueTo="M 5.061 11.528 C 4.696 11.795 3.569 10.901 2.541 9.534 C 1.518 8.168 0.981 6.844 1.344 6.577 C 1.708 6.312 2.834 7.205 3.859 8.571 C 4.887 9.939 5.424 11.262 5.061 11.528 Z"
+                android:valueType="pathType"
+                android:interpolator="@android:anim/overshoot_interpolator"/>
+        </aapt:attr>
+    </target>
+</animated-vector>
