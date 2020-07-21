@@ -29,6 +29,9 @@
         <activity android:name=".ui.home.ModifyListViewDetail"
             android:windowSoftInputMode = "adjustPan|stateAlwaysHidden"
             />
+        <activity android:name=".ui.home.AddListViewDetail"
+            android:windowSoftInputMode = "adjustPan|stateAlwaysHidden"
+            />
     </application>
 
 </manifest>

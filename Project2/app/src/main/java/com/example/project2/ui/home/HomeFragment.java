@@ -3,6 +3,7 @@ package com.example.project2.ui.home;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -45,14 +47,16 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+
     String[] name_array = new String[100];
     String[] num_array = new String[100];
     private ListView listView;
     private ListViewCustomAdapter adapter;
     private ArrayList<ContactItem> contactlist;
     private boolean lock_short_touch;
-    private String origin_name, mod_name, del_name;
-    private String mod_phone;
+    private String origin_name, mod_name, del_name, add_name;
+    private String mod_phone, add_phone;
+    private Button button;
 
 
 
@@ -80,15 +84,26 @@ public class HomeFragment extends Fragment {
         ContactItem contactitem = new ContactItem(root.getContext());
         contactlist = contactitem.getContactList();
 
-/*        for(int i=0;i<contactlist.size();i++){
-            System.out.println(contactlist.get(i).getUser_Name() + "/" + contactlist.get(i).getUser_phNumber());
-        }
-*/
-        //System.out.println(contactlist);
-
         //https말고 http로, slack에 올라와 있는 ip와 port로. android studio에서는 port 번호 4자리 모두 쓰고 nodejs 파일에서는 뒤에 2자리만
         //JSONTask jsonTask = (JSONTask) new JSONTask().execute("http://192.249.19.243:0680/post");//remote server
-        JSONTask jsonTask = (JSONTask) new JSONTask().execute("http://192.168.0.112:3020/post");//local server
+
+
+        SharedPreferences pref = root.getContext().getSharedPreferences("checkFirst", root.getContext().MODE_PRIVATE);
+        boolean checkFirst = pref.getBoolean("checkFirst", false);
+        if(checkFirst == false){//앱 최초 실행시
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("checkFirst",true);
+            editor.commit();
+            JSONTask jsonTask = (JSONTask) new JSONTask().execute("http://192.168.0.112:3020/post");//local server
+        }
+
+        else{
+            JSONTask jsonTask_only_get = (JSONTask) new JSONTask().execute("http://192.168.0.112:3020/only_get");//local server
+        }
+
+
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -163,6 +178,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        button = (Button) root.findViewById(R.id.add_list_button);
+
+        button.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent intent = new Intent(getContext(), AddListViewDetail.class);
+
+                startActivityForResult(intent, 2);
+            }
+        });
+
 
         listView.setAdapter(adapter);
         return root;
@@ -173,7 +200,7 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode){
-            case 0:
+            case 0://modify
                 ListViewCustomDTO mod_dto = (ListViewCustomDTO) data.getSerializableExtra("dto");
                 int index = (int) data.getIntExtra("index", 0);
                 origin_name = ((ListViewCustomDTO) adapter.getItem(index)).getName();
@@ -183,9 +210,26 @@ public class HomeFragment extends Fragment {
                 mod_name = mod_dto.getName();
                 mod_phone = mod_dto.getNumber();
 
-                JSONTask jsonTask = (JSONTask) new JSONTask().execute("http://192.168.0.112:3020/post_modify");
+                JSONTask jsonTask_mod = (JSONTask) new JSONTask().execute("http://192.168.0.112:3020/post_modify");
 
                 break;
+
+            case 2://add
+                ListViewCustomDTO add_dto = (ListViewCustomDTO) data.getSerializableExtra("dto");
+
+                TypedArray arrResId = getResources().obtainTypedArray(R.array.resId);
+                add_dto.setResId(arrResId.getResourceId(adapter.getCount() % 11, 0));
+
+                adapter.addItem(add_dto);
+                adapter.notifyDataSetChanged();
+
+                add_name = add_dto.getName();
+                add_phone = add_dto.getNumber();
+
+                JSONTask jsonTask_add = (JSONTask) new JSONTask().execute("http://192.168.0.112:3020/post_add");
+
+                break;
+
         }
     }
 
@@ -213,8 +257,14 @@ public class HomeFragment extends Fragment {
 
                 }
                 else if(urls[0].contains("post_add")){//add request
+                    jsonObject.accumulate("add_name", add_name);
+                    jsonObject.accumulate("add_number", add_phone);
+                }
+
+                else if(urls[0].contains("only_get")){//only get request
 
                 }
+
 
                 else{//initial post request
 
@@ -304,9 +354,10 @@ public class HomeFragment extends Fragment {
 
             System.out.println(result);
 
-            if(result.equals("modify_done") || result.equals("remove_done")){//response from modify or remove
+            if(result.equals("modify_done") || result.equals("remove_done") || result.equals("add_done")){//response from modify or remove
                 //do nothing
             }
+
 
             else {//response from initial post
 
@@ -315,7 +366,7 @@ public class HomeFragment extends Fragment {
 
                 for (int i = 0; i < response.length; i += 2) {
                     ListViewCustomDTO dto = new ListViewCustomDTO();
-                    dto.setResId(arrResId.getResourceId((i / 2) + 1, 0));
+                    dto.setResId(arrResId.getResourceId(((i / 2) + 1)%11, 0));
                     dto.setName(response[i]);
                     dto.setContent("default");
                     dto.setNumber(response[i + 1]);
