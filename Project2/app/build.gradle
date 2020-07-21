@@ -34,8 +34,13 @@ dependencies {
 
     implementation 'org.mongodb:mongo-java-driver:3.0.4'
 
-    //ted permission
-    implementation "gun0912.ted:tedpermission:2.2.0"
+    // Facebook Login
+    implementation 'com.facebook.android:facebook-login:[5,6)'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Backend
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -2,22 +2,29 @@ package com.example.project2;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project2.ui.present.friend.Friend;
+import com.example.project2.ui.present.friend.FriendDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -42,6 +49,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Friend myself;
+    public static String myName = "이주훈";
+    public static int myID = 2;
+    public static int selectedID = 1;
     private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     @Override
@@ -85,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        List<Friend> blankFriendList = new ArrayList<>();
+        myself = new Friend(myID, myName, blankFriendList);
 
 
 
@@ -112,6 +125,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_my_page) {
+            FriendDetailFragment fragment =
+                    FriendDetailFragment.newInstance(myself);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_fade_exit);
+            transaction.replace(R.id.fragment_friend_detail_container, fragment,
+                    "FRIEND_DETAIL_FRAGMENT").commit();
+            transaction.addToBackStack(null);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 
 }

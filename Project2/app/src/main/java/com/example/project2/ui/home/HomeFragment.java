@@ -27,8 +27,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.project2.MainActivity;
 import com.example.project2.R;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
+
 
 import org.json.JSONObject;
 
@@ -269,7 +268,7 @@ public class HomeFragment extends Fragment {
                 else{//initial post request
 
                     for (int i = 0; i < contactlist.size(); i++) {
-                        //System.out.println(contactlist.get(i).getUser_Name() + "/" + contactlist.get(i).getUser_phNumber());
+                        System.out.println(contactlist.get(i).getUser_Name() + "/" + contactlist.get(i).getUser_phNumber() + "/" + i);
                         jsonObject.accumulate("name", contactlist.get(i).getUser_Name());
                         jsonObject.accumulate("phone", contactlist.get(i).getUser_phNumber());
                     }
