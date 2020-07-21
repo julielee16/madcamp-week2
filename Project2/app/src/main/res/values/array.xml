@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <integer-array name="resId">
+        <item>@drawable/listviewdata1</item>
+        <item>@drawable/listviewdata2</item>
+        <item>@drawable/listviewdata4</item>
+        <item>@drawable/listviewdata1</item>
+        <item>@drawable/listviewdata1</item>
+        <item>@drawable/listviewdata2</item>
+        <item>@drawable/listviewdata4</item>
+        <item>@drawable/listviewdata3</item>
+        <item>@drawable/listviewdata2</item>
+        <item>@drawable/listviewdata3</item>
+        <item>@drawable/listviewdata1</item>
+
+
+
+
+    </integer-array>
+
+
+</resources>
